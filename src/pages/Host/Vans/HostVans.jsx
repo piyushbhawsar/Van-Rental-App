@@ -3,11 +3,13 @@ import { Link } from "react-router-dom"
 
 export default function HostVans(){
     const [hostVans , setHostVans] = React.useState(null)
+    
     React.useEffect(()=>{
         fetch("/api/host/vans")
             .then(response => response.json())
             .then(data => setHostVans(data.vans))
     },[]) 
+
     const hostVansElement = hostVans && hostVans.map(vanObj => (
         <div key={vanObj.id} >
             <Link

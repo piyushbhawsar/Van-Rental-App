@@ -5,6 +5,7 @@ import { useParams,Link,Outlet,NavLink } from "react-router-dom"
 export default function HostVansDetails(){
     const {id} = useParams()
     const [currentVan,setCurrentVan] = React.useState(null)
+    
     React.useEffect(()=>{
         fetch(`/api/host/vans/${id}`)
             .then(response => response.json())

@@ -15,6 +15,7 @@ export default function VanDetail() {
             .then(res => res.json())
             .then(data => setVan(data.vans))
     }, [params.id])
+    
     const vanType = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase() 
     return (
         <div className="van-detail-container">
