@@ -26,9 +26,15 @@ export default function HostVans(){
         </div>
     )) 
     return (
-        <>
-            <h1>Your Listed Vans</h1>
-            {hostVans ? hostVansElement : "loading......"}
-        </>
+        <div>
+            <h1 className="host-vans-title">Your listed vans</h1>
+            <div className="host-vans-list">
+                {
+                    hostVans ? 
+                        hostVansElement :
+                        <h2>Loading...</h2>
+                }
+            </div>
+        </div>
     )
 }

@@ -15,6 +15,7 @@ import HostVansDetails from './pages/Host/Vans/HostVansDetails';
 import HostVansInfo from './pages/Host/Vans/HostVansInfo';
 import HostVansPricing from './pages/Host/Vans/HostVansPricing';
 import HostVansPhotos from './pages/Host/Vans/HostVansPhotos';
+import Error404page from './pages/404page';
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="photos" element={<HostVansPhotos/>}/>
             </Route>
           </Route>
+              <Route path="*" element={<Error404page />}/>
           
         </Route>
       </Routes>
