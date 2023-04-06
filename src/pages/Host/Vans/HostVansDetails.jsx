@@ -1,24 +1,20 @@
 import React from "react"
-import { useParams,Link,Outlet,NavLink } from "react-router-dom"
+import { useParams,Link,Outlet,NavLink, useLoaderData } from "react-router-dom"
+import { getHostVans } from "../../../Api"
 
+export function Loader({ params }){
+    return getHostVans(params.id)
+}
 
 export default function HostVansDetails(){
-    const {id} = useParams()
-    const [currentVan,setCurrentVan] = React.useState(null)
-    
-    React.useEffect(()=>{
-        fetch(`/api/host/vans/${id}`)
-            .then(response => response.json())
-            .then(data => setCurrentVan(data.vans))
-    },[id])
+    const currentVan = useLoaderData()
 
     const activeStyle ={
         fontWeight: "bold" ,
         textDecoration: "underline" ,
         color: "green"
     }
-    const vanELement = currentVan && currentVan.map(vanObj => (
-        <div key={vanObj.id}>
+    const vanELement = <div key={currentVan.id}>
             <Link
                 to=".."
                 relative="path"
@@ -28,15 +24,15 @@ export default function HostVansDetails(){
             </Link>
             <div className="host-van-detail-layout-container">
                 <div className="host-van-detail">
-                        <img src={vanObj.imageUrl} alt="" />
+                        <img src={currentVan.imageUrl} alt="" />
                         <div className="host-van-detail-info-text">
                             <i
-                                className={`van-type van-type-${vanObj.type}`}
+                                className={`van-type van-type-${currentVan.type}`}
                             >
-                                {vanObj.type}
+                                {currentVan.type}
                             </i>
-                            <h3>{vanObj.name}</h3>
-                            <h4>${vanObj.price}/day</h4>
+                            <h3>{currentVan.name}</h3>
+                            <h4>${currentVan.price}/day</h4>
                         </div>
                 </div>
                 <nav className="host-van-detail-nav">
@@ -48,22 +44,21 @@ export default function HostVansDetails(){
                         Details
                     </NavLink>
                     <NavLink 
-                        to={`/host/vans/${vanObj.id}/pricing`}
+                        to={`/host/vans/${currentVan.id}/pricing`}
                         style={({isActive}) => isActive ? activeStyle:null}
                         >
                         Pricing
                     </NavLink>
                     <NavLink 
-                        to={`/host/vans/${vanObj.id}/photos`}
+                        to={`/host/vans/${currentVan.id}/photos`}
                         style={({isActive}) => isActive ? activeStyle:null}
                     >
                         Photos
                     </NavLink>
                 </nav>
-                <Outlet context={{ currentVan:currentVan[0] }}/>
+                <Outlet context={{ currentVan:currentVan }}/>
             </div>
         </div>
-    ))
     return (
         <>
             <div>
